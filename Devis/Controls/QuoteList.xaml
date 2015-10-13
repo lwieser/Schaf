@@ -1,0 +1,85 @@
+﻿<Page x:Class="Devis.Controls.QuoteList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Devis.Controls"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:viewModels="clr-namespace:Devis.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewModels:QuoteListViewModel, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d"  >
+    <Page.Resources>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Hidden" />
+        </Style>
+    </Page.Resources>
+    <StackPanel Background="White" >
+        <TextBlock Style="{StaticResource Title}">
+            Liste des devis
+        </TextBlock>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    Grid.Row="0"
+                    Grid.Column="0">
+                <Button Click="CreateQuote" >
+                    Créer devis
+                </Button>
+                <Button Click="EditQuote" 
+                    IsEnabled="{Binding IsItemSelected}">
+                    Editer devis
+                </Button>
+                <Button Click="DeleteQuote" 
+                    IsEnabled="{Binding IsItemSelected}">
+                    Supprimer devis
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                    Grid.Row="0">
+
+                <ListView ItemsSource="{Binding Quotes}" 
+                      Name="QuoteListItem" SelectionChanged="QuoteListItem_SelectionChanged"
+                      >
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="true" >
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Code}" Header="Code" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Date, StringFormat='{}{0:dd/MM/yyyy}'}" Header="Date" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Client.Code}" Header="Code Client" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=RevivalDate, StringFormat='{}{0:dd/MM/yyyy}'}" Header="Date relance" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=CodeC}" Header="Code C" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=OwnerCode}" Header="Code" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Client.Name}" Header="Nom" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Client.Civility.Label}" Header="Civilité" Width="auto"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Subject}" Header="Sujet"
+                                        Width="{Binding ElementName=helperField, Path=ActualWidth}"
+                                        />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid Visibility="Hidden">
+                    <Grid.ColumnDefinitions>
+                        <!--Width is bound to width of the first GridViewColumn -->
+                        <ColumnDefinition Width="{Binding ElementName=col1, Path=ActualWidth}"/>
+                        <!--Width is set to "Fill"-->
+                        <ColumnDefinition Width="*"/>
+                        <!--Correction Width-->
+                        <ColumnDefinition Width="10"/>
+                    </Grid.ColumnDefinitions>
+                    <!--This is the hidden helper Field which is used to bind to, using the "Fill" column of the helper grid-->
+                    <Grid Grid.Column="1" x:Name="helperField"/>
+                </Grid>
+
+            </StackPanel>
+        </Grid>
+    </StackPanel>
+</Page>

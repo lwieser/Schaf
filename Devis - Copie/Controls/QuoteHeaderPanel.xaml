@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Devis.Controls.QuoteHeaderPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Devis.Controls"
+             xmlns:devis="clr-namespace:Devis"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+              d:DataContext="{d:DesignInstance Type=controls:QuoteHeaderDesignViewModel, IsDesignTimeCreatable=True}">
+    <!-- QuoteHeaderDesignViewModel -->
+
+    <UserControl.Resources>
+
+        <!-- Client template -->
+        <DataTemplate x:Key="ClientContentTemplate">
+            <Grid x:Name="GridContainer">
+                <controls:QuoteHeaderClient
+                        Width="{Binding ElementName=Container, Path=Width}"
+                        Height="{Binding ElementName=Container, Path=Height}"></controls:QuoteHeaderClient>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ClientItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Client"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- Facturation  Template -->
+        <DataTemplate x:Key="BillingContentTemplate">
+            <Grid x:Name="GridContainer">
+                <controls:QuoteHeaderBilling
+                        Width="{Binding ElementName=Container, Path=Width}"
+                        Height="{Binding ElementName=Container, Path=Height}"></controls:QuoteHeaderBilling>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="BillingItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Facturation"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- Facturation  Template -->
+        <DataTemplate x:Key="ConstructionSiteContentTemplate">
+            <Grid x:Name="GridContainer">
+                <controls:QuoteHeaderConstructionSite
+                        Width="{Binding ElementName=Container, Path=Width}"
+                        Height="{Binding ElementName=Container, Path=Height}"></controls:QuoteHeaderConstructionSite>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ConstructionSiteItemTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Chantier"></TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <StackPanel Height="auto"  Background="White">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!-- Row 0 -->
+            <Label Grid.Row="0" Grid.Column="0">Référence</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False"></TextBox>
+            <Label Grid.Row="0" Grid.Column="2">Etat</Label>
+            <ComboBox Grid.Row="0" Grid.Column="3"></ComboBox>
+            <Label Grid.Row="0" Grid.Column="4">Date</Label>
+            <TextBox Grid.Row="0" Grid.Column="5"></TextBox>
+
+            <!-- Row 1 -->
+            <!-- Row 2 -->
+            <Label Grid.Row="2" Grid.Column="0">Chantier</Label>
+            <TextBlock Grid.Row="2" Grid.Column="1"></TextBlock>
+
+            <!-- Row 3 -->
+            <Label Grid.Row="3" Grid.Column="0">Client</Label>
+            <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+
+            <!-- Row 4 -->
+            <Label Grid.Row="4" Grid.Column="0">Civilité</Label>
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+
+            <!-- Row 5 -->
+            <Label Grid.Row="5" Grid.Column="0">Nom</Label>
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+        </Grid>
+
+        <Separator Margin="10"></Separator>
+            <controls:TabControlEx Height="auto"  x:Name="Container" x:FieldModifier="private" ItemsSource="{Binding Panels}" >
+                <controls:TabControlEx.ContentTemplateSelector>
+                    <controls:QuoteHeaderPanelTemplateSelector             
+                        ClientDataTemplate="{StaticResource ClientContentTemplate}"
+                        BillingdataTemplate="{StaticResource BillingContentTemplate}"
+                        ConstructionSiteDataTemplate="{StaticResource ConstructionSiteContentTemplate}"
+                        />
+                </controls:TabControlEx.ContentTemplateSelector>
+                <controls:TabControlEx.ItemTemplateSelector>
+                    <controls:QuoteHeaderPanelTemplateSelector 
+                        ClientDataTemplate="{StaticResource ClientItemTemplate}"
+                        BillingdataTemplate="{StaticResource BillingItemTemplate}"
+                        ConstructionSiteDataTemplate="{StaticResource ConstructionSiteItemTemplate}"
+                        />
+                </controls:TabControlEx.ItemTemplateSelector>
+            </controls:TabControlEx>
+    </StackPanel>
+</UserControl>

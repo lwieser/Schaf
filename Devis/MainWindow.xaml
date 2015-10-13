@@ -1,0 +1,34 @@
+﻿<Window x:Class="Devis.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:devis="clr-namespace:Devis"
+        xmlns:controls="clr-namespace:Devis.Controls" 
+        Title="Schaffner"
+        WindowState="Maximized">
+
+    <DockPanel LastChildFill="True">
+        
+        <!-- Top menu -->
+        <Menu DockPanel.Dock="Top" x:Name="Menu" HorizontalAlignment="Stretch">
+            <MenuItem Header="Général" Name="General" Click="ClickMenu"/>
+            <MenuItem Header="Initialisation" Click="ClickMenu" />
+            <MenuItem Header="Fichiers" Click="ClickMenu" />
+            <MenuItem Header="Chantiers" Click="ClickMenu" />
+            <MenuItem Header="Contrats\Entretien" Click="ClickMenu" />
+            <MenuItem Header="Ventes" Click="ClickMenu" />
+            <MenuItem Header="Achats" Click="ClickMenu" />
+            <MenuItem Header="Financier" Click="ClickMenu" />
+            <MenuItem Header="Stocks"  Click="ClickMenu" />
+            <MenuItem Header="Statistiques" Click="ClickMenu" />
+            <MenuItem Header="Options" Click="ClickMenu" />
+            <MenuItem Header="Utilitaires" Click="ClickMenu" />
+            <MenuItem Header="Fenêtres" Click="ClickMenu" />
+            <MenuItem Header="?" Click="ClickMenu" />
+        </Menu>
+        <DockPanel >
+            <Frame x:Name="_mainFrame"
+                   NavigationUIVisibility="Hidden"
+                   ></Frame>
+        </DockPanel>
+    </DockPanel>
+</Window>

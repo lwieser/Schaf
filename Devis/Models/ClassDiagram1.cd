@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Devis.Models.QuotArticle" Collapsed="true">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\QuotArticle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Devis.Models.QuoteEntry" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\QuoteEntry.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Devis.Models.QuoteItem" Collapsed="true">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAEQAAAAAAIAAAAACAAAAAAAAAAAAAgACAAAA=</HashCode>
+      <FileName>Models\QuoteItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Devis.Models.QuotePackage" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\QuotePackage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

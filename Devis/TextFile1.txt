@@ -1,0 +1,197 @@
+﻿Foreground="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}"
+
+
+
+
+<ListView ItemsSource="{Binding Lines}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+
+                    <Style.Triggers>
+                        <!-- Default style for level 1 -->
+                        <DataTrigger Binding="{Binding Level}" Value="1">
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="Foreground" Value="Green" />
+                        </DataTrigger>
+
+
+                        <!-- Default style for level 2 -->
+                        <DataTrigger Binding="{Binding Level}" Value="2">
+                            <Setter Property="FontSize" Value="10" />
+                            <Setter Property="FontWeight" Value="Normal"></Setter>
+                            <Setter Property="Foreground" Value="Black" />
+                        </DataTrigger>
+
+                        <!-- Default style for level 3 -->
+                        <DataTrigger Binding="{Binding Level}" Value="3">
+                            <Setter Property="FontSize" Value="12" />
+                            <Setter Property="FontWeight" Value="Normal"></Setter>
+                            <Setter Property="Foreground" Value="CornflowerBlue" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <!-- Command columns -->
+                    <GridViewColumn Width="32">
+                        <GridViewColumn.CellTemplateSelector>
+                           <controls:LevelIconTemplateSelector>
+                               <!-- Icon for First level line -->
+                                <controls:LevelIconTemplateSelector.FirstLevel>
+                                    <DataTemplate>
+                                        <fa:FontAwesome Icon="FolderOpen" MouseDown="FirstLevelIcon_MouseDown"></fa:FontAwesome>
+                                    </DataTemplate>
+                                </controls:LevelIconTemplateSelector.FirstLevel>
+
+                                <!-- Icon for second level line -->
+                                <controls:LevelIconTemplateSelector.SecondLevel>
+                                    <DataTemplate>
+                                        <fa:FontAwesome Icon="FolderOpen" MouseDown="SecondLevelIcon_MouseDown" ></fa:FontAwesome>
+                                    </DataTemplate>
+                                </controls:LevelIconTemplateSelector.SecondLevel>
+                               
+                                <!-- Icon for third level line -->
+                                <controls:LevelIconTemplateSelector.OtherLevel>
+                                    <DataTemplate>
+                                    </DataTemplate>
+                                </controls:LevelIconTemplateSelector.OtherLevel>
+                               
+
+                            </controls:LevelIconTemplateSelector>
+                        </GridViewColumn.CellTemplateSelector>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Numérotation">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Numbering}" Style="{StaticResource InheritFromItemStyle}">
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Reférénce">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Reference}" 
+                                               Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    
+                    <GridViewColumn Header="Désignation">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <TextBox Text="{Binding Label}" 
+                                             Style="{StaticResource InheritFromItemStyle}" ></TextBox>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="%Avancement">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Progress}" Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Prix Vente">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Price}" Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Quantité">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Quantity}" Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Unité">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Unit}" Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    
+                    <GridViewColumn Header="Montant">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Amount}" Style="{StaticResource InheritFromItemStyle}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+
+
+		+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+		<Style TargetType="DataGridRow">
+
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+
+                    <Style.Triggers>
+                        <!-- Default style for level 1 -->
+                        <DataTrigger Binding="{Binding Level}" Value="1">
+                            <Setter Property="FontSize" Value="14" />
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="Foreground" Value="Green" />
+                        </DataTrigger>
+
+
+                        <!-- Default style for level 2 -->
+                        <DataTrigger Binding="{Binding Level}" Value="2">
+                            <Setter Property="FontSize" Value="10" />
+                            <Setter Property="FontWeight" Value="Normal"></Setter>
+                            <Setter Property="Foreground" Value="Black" />
+                        </DataTrigger>
+
+                        <!-- Default style for level 3 -->
+                        <DataTrigger Binding="{Binding Level}" Value="3">
+                            <Setter Property="FontSize" Value="12" />
+                            <Setter Property="FontWeight" Value="Normal"></Setter>
+                            <Setter Property="Foreground" Value="CornflowerBlue" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+
+
+            <!--<DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DataContext.Numbering, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGridRow}}}"/>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>-->

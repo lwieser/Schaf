@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Devis.Controls.QuoteDetailToolbar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <ToolBar x:Name="Container" x:FieldModifier="private">
+        <Button ToolTip="Ajouter un lot" IsEnabled="{Binding CanAddPackage}"
+                Click="AddPackage_Click">
+            <Grid>
+                <fa:FontAwesome Icon="FolderOutlined" FontSize="18"></fa:FontAwesome>
+                <fa:FontAwesome Icon="Plus" FontSize="10" FontWeight="Normal" Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Bottom"></fa:FontAwesome>
+            </Grid>
+        </Button>
+        <Button ToolTip="Ajouter un poste" IsEnabled="{Binding CanAddEntry}"
+                Click="AddEntry_Click">
+            <Grid>
+                <fa:FontAwesome Icon="Suitcase" FontSize="18"></fa:FontAwesome>
+                <fa:FontAwesome Icon="Plus" FontSize="10" FontWeight="Normal" Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Bottom"></fa:FontAwesome>
+            </Grid>
+        </Button>
+        <Button IsEnabled="{Binding CanAddArticle}"
+                Click="AddArticle_Entry">
+            <Grid ToolTip="Ajouter un article">
+                <fa:FontAwesome Icon="Th" FontSize="18"></fa:FontAwesome>
+                <fa:FontAwesome Icon="Plus" FontSize="10" FontWeight="Normal" Foreground="Red" HorizontalAlignment="Right" VerticalAlignment="Bottom"></fa:FontAwesome>
+            </Grid>
+        </Button>
+    </ToolBar>
+</UserControl>

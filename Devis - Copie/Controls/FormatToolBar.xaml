@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Devis.FormatToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="476.8">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
+    
+    <ToolBar DockPanel.Dock="Top" x:Name="MainToolbar" x:FieldModifier="private">   
+        <ToolBar.Resources>
+            <Style TargetType="ToggleButton" x:Key="Temp">
+                <Setter Property="Height" Value="24"></Setter>
+                <Setter Property="Width" Value="24"></Setter>
+            </Style>
+        </ToolBar.Resources>
+        
+        
+        <ToggleButton Style="{StaticResource Temp}">
+            <TextBlock FontWeight="Bold">G</TextBlock>
+        </ToggleButton>
+        <ToggleButton Style="{StaticResource Temp}">
+            <TextBlock FontStyle="Italic">I</TextBlock>
+        </ToggleButton>
+        <ToggleButton Style="{StaticResource Temp}">
+            <TextBlock TextDecorations="Underline">S</TextBlock>
+        </ToggleButton>
+
+        <ToggleButton Style="{StaticResource Temp}">
+            <fa:FontAwesome Icon="AlignLeft"></fa:FontAwesome>
+        </ToggleButton>
+        <ToggleButton Style="{StaticResource Temp}">
+            <fa:FontAwesome Icon="AlignCenter"></fa:FontAwesome>
+        </ToggleButton>
+        <ToggleButton Style="{StaticResource Temp}">
+            <fa:FontAwesome Icon="AlignRight"></fa:FontAwesome>
+        </ToggleButton>
+
+
+
+        <ComboBox Name="cmbFontFamily" Width="150" x:FieldModifier="private"
+                  ItemsSource="{Binding FontFamilies, Mode=OneTime}"
+                  SelectedValue="{Binding CurrentFontFamily}"/>
+        
+        <ComboBox Name="cmbFontSize" Width="50" IsEditable="True"  x:FieldModifier="private"  
+                  ItemsSource="{Binding FontSizes, Mode=OneTime}"
+                  SelectedValue="{Binding CurrentFontSize}"/>
+    </ToolBar>
+</UserControl>

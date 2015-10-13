@@ -1,0 +1,25 @@
+﻿<Window x:Class="Devis.Controls.AddQuoteItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter un lot" Height="99.403" Width="300">
+    <Grid x:Name="GridContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Désignation -->
+        <Label Grid.Row="0" Grid.Column="0" Content="Désignation"></Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Label}"></TextBox>
+        
+        <!-- Buttons -->
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" VerticalAlignment="Bottom">
+            <Button Click="Close_Click">Ok</Button>
+            <Button Click="Cancel_Click">Annuler</Button>
+        </StackPanel>
+    </Grid>
+</Window>
