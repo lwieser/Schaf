@@ -12,6 +12,7 @@ using Devis.Annotations;
 using Devis.Models;
 using Devis.Tools;
 using Devis.ViewModels;
+using Devis.Repositories;
 
 namespace Devis.Controls
 {
@@ -25,19 +26,19 @@ namespace Devis.Controls
         private QuoteDetailSelectionContext _selectionContext;
         private Quote _quote;
         private int _id;
+        private QuoteDetailViewModel _vm;
 
         public QuoteDetail()
         {
             InitializeComponent();
             Lines = new ObservableCollection<LineViewModel>();
             Container.DataContext = this;
-
             ActionToobar.CanAddPackage = true;
             FmtToolbar.PropertyChanged += FmtToolbar_PropertyChanged;
-            var vm = new QuoteDetailViewModel();
-            DataContext = new QuoteDetailViewModel();
-            Lines = vm.Lines;
-            _packages = vm.Quote.Packages;
+            _vm = new QuoteDetailViewModel();
+            DataContext = _vm;
+            _packages = _vm.Quote.Packages;
+            Lines = GenerateLines();
         }
 
         public ObservableCollection<LineViewModel> Lines
@@ -153,15 +154,19 @@ namespace Devis.Controls
         }
 
 
-        private void RefreshGrid()
+        private ObservableCollection<LineViewModel> GenerateLines()
         {
+            int quoteId = int.Parse(App.Current.Properties["QuoteID"].ToString());
+            QuoteRepository repo = new QuoteRepository();
+            Quote quote = repo.GetQuote(quoteId);
+            List<QuotePackage> packages = quote.Packages;
             var models = new List<LineViewModel>();
 
             // Add Packages
-            for (int index = 0; index < _packages.Count; index++)
-            {
-                QuotePackage package = _packages[index];
+            int index = 0;
 
+            foreach (QuotePackage package in packages)
+            {
                 QuoteItemViewModel model = QuoteItemViewModelFactory.Create(package, null);
                 model.Numbering = (index + 1).ToString();
 
@@ -177,19 +182,23 @@ namespace Devis.Controls
                     entryModel.Numbering = string.Format("{0}.{1}", model.Numbering, (entryIndex + 1));
                     models.Add(entryModel);
 
-
-
                     models.AddRange(entry.Articles.Select(a => QuoteItemViewModelFactory.Create(a, entryModel)));
                 }
 
                 if (package.Entries.Any())
                     models.Add(LineViewModel.Empty);
-            }
 
+                index++;
+            }
 
             //Update grid
             Lines = new ObservableCollection<LineViewModel>(models);
+            return Lines;
+        }
 
+        private void RefreshGrid()
+        {
+            Lines = GenerateLines();
             // Update buttons
             UpdateActionButtonState(null);
         }
@@ -206,16 +215,22 @@ namespace Devis.Controls
 
         private void AddNewQuoteDetail()
         {
-                try
-                {
-                    //AddQuoteDetail();
-                }
-                catch (Exception exception)
-                {
-                    MessageBoxHelper.ShowError(exception);
-                }
+            try
+            {
+                //AddQuoteDetail();
+            }
+            catch (Exception exception)
+            {
+                MessageBoxHelper.ShowError(exception);
+            }
         }
 
+        private void FlushQuote(object sender, RoutedEventArgs e)
+        {
+            QuoteRepository repo = new QuoteRepository();
+            repo.Flush(int.Parse(App.Current.Properties["QuoteID"].ToString()));
+            RefreshGrid();
+        }
 
         #region  INotifyPropertyChanged
 

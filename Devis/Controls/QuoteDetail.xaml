@@ -29,139 +29,151 @@
         </Style>
         
     </UserControl.Resources>
-    
-    
-    <Grid x:Name="Container" x:FieldModifier="private">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*" MinHeight="100"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <controls:QuoteDetailToolbar x:Name="ActionToobar" x:FieldModifier="private"
+        <StackPanel Grid.Column="0">
+            <Button Content="RAZ" Click="FlushQuote">
+            </Button>
+        </StackPanel>
+
+        <Grid x:Name="Container" 
+              x:FieldModifier="private" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*" MinHeight="100"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <controls:QuoteDetailToolbar x:Name="ActionToobar" x:FieldModifier="private"
                                          AddArticle="ActionToobar_OnAddArticle"
                                          AddEntry="ActionToobar_OnAddEntry"
                                          AddPackage="ActionToobar_OnAddPackage"></controls:QuoteDetailToolbar>
-            <devis:FormatToolBar  x:Name="FmtToolbar" x:FieldModifier="private"></devis:FormatToolBar>    
-        </StackPanel>
-        
-        
-        <DataGrid ItemsSource="{Binding Lines}"  SelectionUnit="CellOrRowHeader" GridLinesVisibility="Vertical"
+                <devis:FormatToolBar  x:Name="FmtToolbar" x:FieldModifier="private"></devis:FormatToolBar>
+            </StackPanel>
+
+
+            <DataGrid ItemsSource="{Binding Lines}"  SelectionUnit="CellOrRowHeader" GridLinesVisibility="Vertical"
                   CanUserResizeRows="True" CanUserAddRows="False" CanUserDeleteRows="True"
                   AutoGenerateColumns="False" Grid.Row="1"
                   RowHeaderWidth="24" SelectionMode="Single"  x:Name="TheGrid" x:FieldModifier="private"
                   CanUserSortColumns="False" 
                   SelectedCellsChanged="TheGrid_OnSelectedCellsChanged">
-            <DataGrid.CommandBindings>
-                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"></CommandBinding>
-            </DataGrid.CommandBindings>
-            
-            <DataGrid.CellStyle>
-                <Style TargetType="DataGridCell">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                </Style>
-            </DataGrid.CellStyle>
-            
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
+                <DataGrid.CommandBindings>
+                    <CommandBinding Command="ApplicationCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"></CommandBinding>
+                </DataGrid.CommandBindings>
 
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
-                    <Setter Property="ContextMenu">
-                        <Setter.Value>
-                            <ContextMenu>
-                                <MenuItem Header="Supprimer" Command="ApplicationCommands.Delete"></MenuItem>
-                            </ContextMenu>
-                        </Setter.Value>
-                    </Setter>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    </Style>
+                </DataGrid.CellStyle>
 
-                    <!-- Add event hanlder -->
-                    <!--<EventSetter Event="MouseUp" Handler="DataGridRow_MouseUp"></EventSetter>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Supprimer" Command="{Binding Path=DeleteLine}"></MenuItem>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+
+                        <!-- Add event hanlder -->
+                        <!--<EventSetter Event="MouseUp" Handler="DataGridRow_MouseUp"></EventSetter>
                     -->
-                    
-                    <Style.Triggers>
-                        
-                        <!-- Default style for level 1 -->
-                        <DataTrigger Binding="{Binding Level}" Value="1">
-                            <Setter Property="FontSize" Value="14" />
-                            <Setter Property="FontWeight" Value="Bold"></Setter>
-                            <Setter Property="Foreground" Value="Green" />
-                        </DataTrigger>
+
+                        <Style.Triggers>
+
+                            <!-- Default style for level 1 -->
+                            <DataTrigger Binding="{Binding Level}" Value="1">
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="FontWeight" Value="Bold"></Setter>
+                                <Setter Property="Foreground" Value="Green" />
+                            </DataTrigger>
 
 
-                        <!-- Default style for level 2 -->
-                        <DataTrigger Binding="{Binding Level}" Value="2">
-                            <Setter Property="FontSize" Value="10" />
-                            <Setter Property="FontWeight" Value="Normal"></Setter>
-                            <Setter Property="Foreground" Value="Black" />
-                        </DataTrigger>
+                            <!-- Default style for level 2 -->
+                            <DataTrigger Binding="{Binding Level}" Value="2">
+                                <Setter Property="FontSize" Value="10" />
+                                <Setter Property="FontWeight" Value="Normal"></Setter>
+                                <Setter Property="Foreground" Value="Black" />
+                            </DataTrigger>
 
-                        <!-- Default style for level 3 -->
-                        <DataTrigger Binding="{Binding Level}" Value="3">
-                            <Setter Property="FontSize" Value="12" />
-                            <Setter Property="FontWeight" Value="Normal"></Setter>
-                            <Setter Property="Foreground" Value="CornflowerBlue" />
-                        </DataTrigger>
-                    </Style.Triggers>
+                            <!-- Default style for level 3 -->
+                            <DataTrigger Binding="{Binding Level}" Value="3">
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="FontWeight" Value="Normal"></Setter>
+                                <Setter Property="Foreground" Value="CornflowerBlue" />
+                            </DataTrigger>
+                        </Style.Triggers>
 
-                </Style>
-            </DataGrid.RowStyle>
-            
-            <DataGrid.RowHeaderTemplateSelector>
-                <controls:LevelIconTemplateSelector>
-                    <!-- Icon for First level line -->
-                    <controls:LevelIconTemplateSelector.FirstLevel>
-                        <DataTemplate>
-                            <!--<fa:FontAwesome Icon="FolderOpen" MouseDown="FirstLevelIcon_MouseDown"></fa:FontAwesome>-->
-                        </DataTemplate>
-                    </controls:LevelIconTemplateSelector.FirstLevel>
+                    </Style>
+                </DataGrid.RowStyle>
 
-                    <!-- Icon for second level line -->
-                    <controls:LevelIconTemplateSelector.SecondLevel>
-                        <DataTemplate>
-                            <!--<fa:FontAwesome Icon="FolderOpen" MouseDown="SecondLevelIcon_MouseDown" ></fa:FontAwesome>-->
-                        </DataTemplate>
-                    </controls:LevelIconTemplateSelector.SecondLevel>
+                <DataGrid.RowHeaderTemplateSelector>
+                    <controls:LevelIconTemplateSelector>
+                        <!-- Icon for First level line -->
+                        <controls:LevelIconTemplateSelector.FirstLevel>
+                            <DataTemplate>
+                                <!--<fa:FontAwesome Icon="FolderOpen" MouseDown="FirstLevelIcon_MouseDown"></fa:FontAwesome>-->
+                            </DataTemplate>
+                        </controls:LevelIconTemplateSelector.FirstLevel>
 
-                    <!-- Icon for third level line -->
-                    <controls:LevelIconTemplateSelector.OtherLevel>
-                        <DataTemplate>
-                        </DataTemplate>
-                    </controls:LevelIconTemplateSelector.OtherLevel>
+                        <!-- Icon for second level line -->
+                        <controls:LevelIconTemplateSelector.SecondLevel>
+                            <DataTemplate>
+                                <!--<fa:FontAwesome Icon="FolderOpen" MouseDown="SecondLevelIcon_MouseDown" ></fa:FontAwesome>-->
+                            </DataTemplate>
+                        </controls:LevelIconTemplateSelector.SecondLevel>
+
+                        <!-- Icon for third level line -->
+                        <controls:LevelIconTemplateSelector.OtherLevel>
+                            <DataTemplate>
+                            </DataTemplate>
+                        </controls:LevelIconTemplateSelector.OtherLevel>
 
 
-                </controls:LevelIconTemplateSelector>
-            </DataGrid.RowHeaderTemplateSelector>
-            
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Numérotation">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Numbering}" Style="{StaticResource InheritFromItemStyle}">
-                                </TextBlock>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTextColumn  Header="Référence" Binding="{Binding Reference}">
-                </DataGridTextColumn>
+                    </controls:LevelIconTemplateSelector>
+                </DataGrid.RowHeaderTemplateSelector>
 
-                <DataGridTextColumn  Header="Désignation" Binding="{Binding Label}">
-                </DataGridTextColumn>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Numérotation">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Numbering}" Style="{StaticResource InheritFromItemStyle}">
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="% Avancement" Binding="{Binding Progress}"></DataGridTextColumn>
-                
-                <DataGridTextColumn Header="Prix" Binding="{Binding Price}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="Référence" Binding="{Binding Reference}">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="Désignation" Binding="{Binding Label}">
+                    </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Unité" Binding="{Binding Unit}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="% Avancement" Binding="{Binding Progress}"></DataGridTextColumn>
 
-                <DataGridTextColumn Header="Montant" Binding="{Binding Amount}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <DataGridTextColumn Header="Prix" Binding="{Binding Price}"></DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}"></DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Unité" Binding="{Binding Unit}"></DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Montant" Binding="{Binding Amount}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </UserControl>

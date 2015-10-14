@@ -1,12 +1,12 @@
 ﻿using System;
 using Devis.Models;
+using Devis.Repositories;
 
 namespace Devis.Controls
 {
     partial class QuoteDetail
     {
         #region Toolbar
-
         private void ActionToobar_OnAddPackage(object sender, EventArgs e)
         {
             try
@@ -18,12 +18,19 @@ namespace Devis.Controls
 
                 if (form.ShowDialog() == true)
                 {
-                    var item = new QuotePackage
-                    {
-                        Label = form.Label,
-                    };
+                    int quoteId = int.Parse(App.Current.Properties["QuoteID"].ToString());
+                    QuoteRepository repo = new QuoteRepository();
+                    Quote quote = repo.GetQuote(quoteId);
+                    int numerotation = quote.GetNextNumerotation();
 
-                    _packages.Add(item);
+                    if(_selectionContext != null && _selectionContext.Model != null)
+                    {
+                        var package = (QuotePackage)_selectionContext.Model.UnderlyingObject;
+                        numerotation = package.Numerotation + 1;
+                        repo.UpgradeNumerotationFrom(quote, numerotation);
+                    }
+
+                    repo.AddPackage(quoteId, numerotation, form.Label);
                     RefreshGrid();
                 }
             }
@@ -46,9 +53,21 @@ namespace Devis.Controls
 
                     if (form.ShowDialog() == true)
                     {
-                        var article = new QuoteArticle { Label = form.Label, };
                         var entry = (QuoteEntry)_selectionContext.Model.UnderlyingObject;
-                        entry.AddArticle(article);
+                        EntryRepository repo = new EntryRepository();
+
+                        int numerotation = entry.GetNextNumerotation();
+
+                        if (_selectionContext != null && _selectionContext.Model != null)
+                        {
+                            if (entry != null)
+                            {
+                                numerotation = entry.Numerotation + 1;
+                                repo.UpgradeNumerotationFrom(entry, numerotation);
+                            }
+                        }
+
+                        repo.AddEntry(entry, form.Label, 1);
 
                         RefreshGrid();
                     }
@@ -59,7 +78,6 @@ namespace Devis.Controls
                 MessageBoxHelper.ShowError(exception);
             }
         }
-
 
         private void ActionToobar_OnAddEntry(object sender, EventArgs e)
         {
@@ -74,11 +92,22 @@ namespace Devis.Controls
 
                     if (form.ShowDialog() == true)
                     {
-                        var entry = new QuoteEntry { Label = form.Label, };
                         var package = (QuotePackage)_selectionContext.Model.UnderlyingObject;
-                        package.AddEntry(entry);
-                        
+                        PackageRepository repo = new PackageRepository();
 
+                        int numerotation = package.GetNextNumerotation();
+
+                        if (_selectionContext != null && _selectionContext.Model != null)
+                        {
+                            var entry = _selectionContext.Model.UnderlyingObject as QuoteEntry;
+                            if(entry != null)
+                            {
+                                numerotation = entry.Numerotation + 1;
+                                repo.UpgradeNumerotationFrom(package, numerotation);
+                            }
+                        }
+
+                        repo.AddEntry(package,form.Label,1);
                         RefreshGrid();
                     }
                 }
@@ -88,7 +117,6 @@ namespace Devis.Controls
                 MessageBoxHelper.ShowError(exception);
             }
         }
-
         #endregion
     }
 }

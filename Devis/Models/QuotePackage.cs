@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace Devis.Models
@@ -8,13 +9,20 @@ namespace Devis.Models
     {
         public QuotePackage()
         {
-            Entries = new Collection<QuoteEntry>();
+            Entries = new List<QuoteEntry>();
+        }
+
+        public QuotePackage(string packageLabel, int numerotation)
+        {
+            Label = packageLabel;
+            Numerotation = numerotation;
+            Entries = new List<QuoteEntry>();
         }
 
         /// <summary>
         ///     The list of entries
         /// </summary>
-        public IList<QuoteEntry> Entries { get; private set; }
+        public List<QuoteEntry> Entries { get; private set; }
 
         /// <summary>
         /// Add an entry
@@ -45,8 +53,22 @@ namespace Devis.Models
 
             set
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
             }
+        }
+
+        public int Numerotation { get; set; }
+
+        internal int GetNextNumerotation()
+        {
+            int numerotation = 1;
+
+            if(Entries.Count > 0)
+            {
+                numerotation = Entries.Max(x => x.Numerotation) + 1;
+            }
+
+            return numerotation;
         }
     }
 }

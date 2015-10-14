@@ -16,7 +16,7 @@ namespace Devis.ViewModels
     {
         private int _id;
         private Quote _quote;
-        public ObservableCollection<LineViewModel> Lines { get; private set; }
+        private ObservableCollection<LineViewModel> _lines;
 
         public QuoteDetailViewModel()
         {
@@ -101,6 +101,18 @@ namespace Devis.ViewModels
                 OnPropertyChanged();
             }
         }
+
+
+        public ObservableCollection<LineViewModel> Lines
+        {
+            get { return _lines; }
+            set
+            {
+                _lines = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region  INotifyPropertyChanged

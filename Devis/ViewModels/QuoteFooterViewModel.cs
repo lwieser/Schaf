@@ -116,7 +116,7 @@ namespace Devis.ViewModels
                     {
                         if (String.IsNullOrEmpty(parts[0])) // article 
                         {
-                            currentEntry.AddArticle(new QuoteArticle()
+                            currentEntry.AddArticle(new QuoteArticle(1,"label")
                             {
                                 Price = model.Price,
                                 Quantity = model.Quantity

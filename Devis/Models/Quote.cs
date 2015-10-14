@@ -22,6 +22,19 @@ namespace Devis.Models
         public string Subject { get; set; }
         public StateEnum? State { get; internal set; }
         public List<QuotePackage> Packages { get; set; }
+
+        internal int GetNextNumerotation()
+        {
+            int next = 1;
+
+            if(Packages.Count > 0)
+            {
+                next = Packages.Max(x => x.Numerotation) +1 ;
+            }
+
+            return next;
+        }
+
         public Client Client { get; set; }
 
         private Quote()

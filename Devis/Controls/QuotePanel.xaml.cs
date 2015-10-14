@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Devis.Tools;
 using System;
+using Devis.Repositories;
 
 namespace Devis.Controls
 {
@@ -67,6 +68,7 @@ namespace Devis.Controls
         {
             AddNewQuoteDetail();
         }
+
     }
 
     public class QuoteDetailItem

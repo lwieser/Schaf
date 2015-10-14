@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -11,6 +12,13 @@ namespace Devis.Models
     {
         public QuoteEntry()
         {
+            Articles = new Collection<QuoteArticle>();
+        }
+
+        public QuoteEntry(int numerotation, string label)
+        {
+            Label = label;
+            Numerotation = numerotation;
             Articles = new Collection<QuoteArticle>();
         }
 
@@ -30,6 +38,8 @@ namespace Devis.Models
             Articles.Add(article);
             article.Entry = this;
         }
+
+        public int Numerotation { get; set; }
 
         public override double? Price
         {
@@ -54,11 +64,29 @@ namespace Devis.Models
             }
         }
 
+        internal int GetNextNumerotation()
+        {
+            int next = 1;
+            if(Articles.Count > 0)
+            {
+                next = Articles.Max(x => x.Numerotation) + 1;
+            }
+
+            return next;
+        }
     }
 
 
     public class QuoteArticle : QuoteItem
     {
+        public QuoteArticle(int numerotation, string label)
+        {
+            Numerotation = numerotation;
+            Label = label;
+        }
+
+        private QuoteArticle() { }
+
         public QuoteEntry Entry { get; set; }
     }
 

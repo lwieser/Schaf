@@ -77,7 +77,7 @@
     <Grid Background="White" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="25"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel LastChildFill="True"
                    VerticalAlignment="Stretch"
@@ -112,7 +112,6 @@
             <Button>
                 <TextBlock>Enregistrer</TextBlock>
             </Button>
-
             <Button>
                 <TextBlock>Impirmer</TextBlock>
             </Button>

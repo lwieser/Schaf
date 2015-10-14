@@ -12,6 +12,7 @@ namespace Devis.Models
         public virtual double? Progress { get; set; }
         public virtual double? Price { get; set; }
         public virtual int? Quantity { get; set; }
+        public virtual int Numerotation { get; set; }
         public string Unit { get; set; }
         public virtual double? Amount { get; set; }
         
