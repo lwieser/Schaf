@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Devis.Tools;
 using System;
 using Devis.Repositories;
+using Devis.Models;
 
 namespace Devis.Controls
 {
@@ -24,7 +25,7 @@ namespace Devis.Controls
                 new QuoteDetailItem(QuotePanelType.Head),
                 new QuoteDetailItem(QuotePanelType.Foot)
             };
-            Container.DataContext = this;
+            Container.DataContext = new QuotePanelDesignViewModel();
             Container.SelectedIndex = 0;
         }
 
@@ -68,7 +69,6 @@ namespace Devis.Controls
         {
             AddNewQuoteDetail();
         }
-
     }
 
     public class QuoteDetailItem

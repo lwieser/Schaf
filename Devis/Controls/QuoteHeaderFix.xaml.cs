@@ -1,5 +1,4 @@
-﻿using Devis.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace Devis.Controls
 {
     /// <summary>
-    /// Logique d'interaction pour QuoteHeaderClient.xaml
+    /// Logique d'interaction pour QuoteHeaderFix.xaml
     /// </summary>
-    public partial class QuoteHeaderClient : UserControl
+    public partial class QuoteHeaderFix : UserControl
     {
-        public QuoteHeaderClient()
+        public QuoteHeaderFix()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

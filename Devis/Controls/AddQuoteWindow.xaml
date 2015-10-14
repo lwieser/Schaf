@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Devis.Controls.Design"
         mc:Ignorable="d"
-        Title="Ajouter un devis"  Height="200" Width="300">
+        Title="Ajouter un devis" Height="150" Width="300"
+        Margin="0,0,0,0">
 
-    <Grid x:Name="GridContainer" Margin="0,0,-0.4,63">
+    <Grid x:Name="GridContainer" 
+          Height="auto" Margin="0,0,-0.4,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -16,7 +18,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <!-- Désignation -->
@@ -32,7 +34,7 @@
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding QuoteCode}"></TextBox>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" VerticalAlignment="Bottom">
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" FlowDirection="RightToLeft" VerticalAlignment="Top">
             <Button Click="Close_Click">Ok</Button>
             <Button Click="Cancel_Click">Annuler</Button>
         </StackPanel>

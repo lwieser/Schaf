@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Devis.Controls"
              xmlns:devis="clr-namespace:Devis"
+             xmlns:vm="clr-namespace:Devis.ViewModels"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=controls:QuoteHeaderDesignViewModel, IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance Type=vm:QuoteHeaderViewModel, IsDesignTimeCreatable=True}"
              >
     <!-- QuoteHeaderDesignViewModel -->
     <UserControl.Resources>
@@ -93,19 +94,23 @@
 
             <!-- Row 3 -->
             <Label Grid.Row="3" Grid.Column="0">Client</Label>
-            <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Client.Code}"></TextBox>
 
             <!-- Row 4 -->
             <Label Grid.Row="4" Grid.Column="0">Civilité</Label>
-            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+            <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+                     Text="{Binding Client.Civility.Label}"></TextBox>
 
             <!-- Row 5 -->
             <Label Grid.Row="5" Grid.Column="0">Nom</Label>
-            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
+            <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3"
+                     Text="{Binding Client.Name}"></TextBox>
         </Grid>
 
         <Separator Margin="10"></Separator>
-        <controls:HeaderTabControl Height="auto"  x:Name="Container" x:FieldModifier="private" ItemsSource="{Binding Panels}" >
+        <controls:HeaderTabControl Height="auto"
+                                   d:DataContext="{d:DesignInstance Type=controls:QuoteHeaderDesignViewModel, IsDesignTimeCreatable=True}"
+                                   x:Name="Container" x:FieldModifier="private" ItemsSource="{Binding Panels}" >
             <controls:HeaderTabControl.ContentTemplateSelector>
                     <controls:QuoteHeaderPanelTemplateSelector             
                         ClientDataTemplate="{StaticResource ClientContentTemplate}"

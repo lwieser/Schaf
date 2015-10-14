@@ -1,5 +1,6 @@
 ﻿using Devis.Annotations;
 using Devis.Models;
+using Devis.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,7 +47,8 @@ namespace Devis.ViewModels
 
         private void AssignValues()
         {
-            _salePrice = _packages.Sum(package => package.Price) ?? 0;
+            Quote quote  = new QuoteRepository().GetQuote(int.Parse(App.Current.Properties["QuoteID"].ToString()));
+            _salePrice = quote.Packages.Sum(package => package.Price) ?? 0;
             _posePrice = 0;
             _grossPrice = _salePrice + _posePrice;
             _refreshingCoef = 1;
@@ -58,6 +60,7 @@ namespace Devis.ViewModels
             _tva = _taxeFreeFinal * TVA_RATE;
             _taxeIncluded = _taxeFreeFinal + _tva;
             _taxeIncludedNet = _taxeIncluded;
+            _totalNet = _taxeIncluded;
         }
 
         private void Load()
@@ -206,6 +209,7 @@ namespace Devis.ViewModels
                 if (Equals(value, _discountRate)) return;
                 _discountRate = value;
                 _discount= _discountRate * _taxeFreeNetCom / 100;
+                TaxeFreeFinal = _taxeFreeNetCom - _discount;
                 OnPropertyChanged("Discount");
                 OnPropertyChanged();
             }

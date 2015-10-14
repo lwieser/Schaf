@@ -2,13 +2,16 @@
 using System.Windows;
 using System.Windows.Controls;
 using Devis.Tools;
+using Devis.Models;
+using Devis.ViewModels;
+using Devis.Repositories;
 
 namespace Devis.Controls
 {
     /// <summary>
     /// Logique d'interaction pour QuoteHeaderPanel.xaml
     /// </summary>
-    public partial class QuoteHeaderPanel
+    public partial class QuoteHeaderPanel 
     {
         public QuoteHeaderPanel()
         {
@@ -20,6 +23,7 @@ namespace Devis.Controls
                 new QuoteHeaderItem(QuoteHeaderPanelType.Billing),
                 new QuoteHeaderItem(QuoteHeaderPanelType.ConstructionSite),
             };
+            DataContext = new QuoteHeaderViewModel();
             Container.DataContext = this;
             Container.SelectedIndex = 0;
         }
@@ -55,7 +59,7 @@ namespace Devis.Controls
         ConstructionSite,
     }
 
-    public class QuoteHeaderDesignViewModel
+    public class QuoteHeaderDesignViewModel : NotifyPropertyChangedGeneric
     {
         public QuoteHeaderDesignViewModel()
         {
@@ -67,7 +71,12 @@ namespace Devis.Controls
             };
         }
 
+        public string Test
+        {
+            get { return "Testxx"; }
+        }
         public ObservableCollection<QuoteHeaderItem> Panels { get; set; }
+        public Client Client { get; set; }
     }
 
     public class QuoteHeaderPanelTemplateSelector : DataTemplateSelector
