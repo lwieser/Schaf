@@ -63,7 +63,9 @@
                   AutoGenerateColumns="False" Grid.Row="1"
                   RowHeaderWidth="24" SelectionMode="Single"  x:Name="TheGrid" x:FieldModifier="private"
                   CanUserSortColumns="False" 
-                  SelectedCellsChanged="TheGrid_OnSelectedCellsChanged">
+                  SelectedCellsChanged="TheGrid_OnSelectedCellsChanged"
+                      CellEditEnding="CellEditEnding"
+                      >
                 <DataGrid.CommandBindings>
                     <CommandBinding Command="ApplicationCommands.Delete" CanExecute="DeleteCommand_CanExecute" Executed="DeleteCommand_Executed"></CommandBinding>
                 </DataGrid.CommandBindings>

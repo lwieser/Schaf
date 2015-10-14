@@ -37,5 +37,15 @@ namespace Devis.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Update(QuoteEntry obj)
+        {
+            using (Entities entities = new Entities())
+            {
+                QuoteEntry entry = entities.Entries.First(x => x.Id == obj.Id);
+                entry.Quantity = obj.Quantity;
+                entities.SaveChanges();
+            }
+        }
     }
 }

@@ -13,6 +13,8 @@ using Devis.Models;
 using Devis.Tools;
 using Devis.ViewModels;
 using Devis.Repositories;
+using System.Windows.Data;
+using System.Reflection;
 
 namespace Devis.Controls
 {
@@ -244,5 +246,49 @@ namespace Devis.Controls
         }
 
         #endregion
+
+        private void CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            QuoteEntry entry = _selectionContext.Model.UnderlyingObject as QuoteEntry;
+            QuoteArticle article = _selectionContext.Model.UnderlyingObject as QuoteArticle;
+
+            var binding = (e.Column as DataGridBoundColumn).Binding as Binding;
+            string propertyChanged = binding.Path.Path;
+            var editedTextbox = e.EditingElement as TextBox;
+            string value = editedTextbox.Text;
+
+            if (entry != null)
+            {
+                EntryRepository repo = new EntryRepository();
+                switch (propertyChanged)
+                {
+                    case "Quantity":
+                        entry.Quantity = int.Parse(value);
+                        break;
+                }
+                repo.Update(entry);
+            }
+
+            if(article != null)
+            {
+                ArticleRepository repo = new ArticleRepository();
+                switch(propertyChanged)
+                {
+                    case "Price":
+                        article.Price = double.Parse(value);
+                        break;
+                    case "Amount":
+                        article.Amount = double.Parse(value);
+                        break;
+                    case "Quantity":
+                        article.Quantity = int.Parse(value);
+                        break;
+                    case "Unit":
+                        article.Unit = value;
+                        break;
+                }
+                repo.Update(article);
+            }
+        }
     }
 }

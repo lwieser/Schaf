@@ -36,5 +36,10 @@ namespace Devis.Repositories
                 }
             }
         }
+
+        public void Update(QuotePackage obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

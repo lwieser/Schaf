@@ -95,5 +95,10 @@ namespace Devis.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Quote obj)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

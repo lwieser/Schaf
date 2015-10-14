@@ -9,5 +9,6 @@ namespace Devis.Repositories
     interface IRepositoryGeneric<T> where T : class
     {
         ICollection<T> GetAll();
+        void Update(T obj);
     }
 }
