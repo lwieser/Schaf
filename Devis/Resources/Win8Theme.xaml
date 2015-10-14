@@ -203,11 +203,12 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="TextBlock" x:Key="Title">
+    <Style TargetType="{x:Type TextBlock}" x:Key="Title">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="Padding" Value="20" />
         <Setter Property="Background" Value="{StaticResource ResourceKey=ColorLightGrey}" />
         <Setter Property="Foreground" Value="{StaticResource ResourceKey=ColorGreyText}" />
         <Setter Property="Margin" Value="0,0,0,20"/>
     </Style>
+
 </ResourceDictionary>

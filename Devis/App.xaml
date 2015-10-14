@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Win8Theme.xaml"/>
                 <ResourceDictionary Source="Resources/DataGrid.xaml" />
+                <ResourceDictionary Source="Resources/RadioButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

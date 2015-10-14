@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Devis.Controls.Planning"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:Devis.Planning"
+             xmlns:local="clr-namespace:Devis.Controls"
+             mc:Ignorable="d" 
+             xmlns:converters="clr-namespace:Devis.Converters"
+             xmlns:ig="http://schemas.infragistics.com/xaml"
+             d:DataContext="{d:DesignInstance Type=vm:PlanningViewModel, IsDesignTimeCreatable=True}"
+             Width="auto"
+             Height="auto"
+             >
+    <UserControl.Resources>
+        <converters:EnumToBooleanConverter x:Key="enumConverter" />
+        <converters:EnumToVisibilityConverter x:Key="enumVisibilityConverter" />
+
+    </UserControl.Resources>
+    
+    <Grid Name="PageRoot" Height="auto" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="100" />
+        </Grid.ColumnDefinitions>
+
+        
+        <!-- Selection Panel -->
+        <StackPanel Grid.Row="1" Grid.Column="0"
+                    >
+            <RadioButton GroupName="viewSelector" Content="Planning" 
+                         IsChecked="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumConverter},
+                                 ConverterParameter=Schedule}"/>
+            <RadioButton GroupName="viewSelector" Content="Jour"
+                         IsChecked="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumConverter},
+                                 ConverterParameter=Day}"/>
+            <RadioButton GroupName="viewSelector" Content="Mois"
+                         IsChecked="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumConverter},
+                                 ConverterParameter=Month}"/>
+        </StackPanel>
+
+        <DockPanel Grid.Row="1" Grid.Column="1" >
+            <ig:XamScheduleView WeekDisplayMode="Week"
+                            CalendarDisplayMode="Separate"
+                            Name="ScheduleView"
+                            DataManager="{Binding DataManager}"
+                            Visibility="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumVisibilityConverter},
+                                 ConverterParameter=Schedule}"
+                            />
+            <ig:XamDayView  x:Name="DayView"
+                        DataManager="{Binding DataManager}"
+                        Visibility="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumVisibilityConverter},
+                                 ConverterParameter=Day}"></ig:XamDayView>
+            <ig:XamMonthView  x:Name="MonthView"
+                        DataManager="{Binding DataManager}"
+                        Visibility="{Binding Path=ViewOption, Mode=TwoWay, 
+                                 Converter={StaticResource enumVisibilityConverter},
+                                 ConverterParameter=Month}"></ig:XamMonthView>
+
+        </DockPanel>
+    </Grid>
+</UserControl>

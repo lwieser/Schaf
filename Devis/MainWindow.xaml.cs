@@ -28,14 +28,10 @@ namespace Devis
             InitializeComponent();
             _mainFrame.Navigate(new Home());
         }
-        
-       
 
         private void ClickMenu(object sender, RoutedEventArgs e)
         {
             InitializeComponent();
-
-
             HighlightSelected(sender);
 
             MenuItem item = (MenuItem)sender;
@@ -44,6 +40,9 @@ namespace Devis
             {
                 case "General":
                     _mainFrame.Navigate(new QuoteList());
+                    break;
+                case "Planning":
+                    _mainFrame.Navigate(new Controls.Planning());
                     break;
                 default:
                     _mainFrame.Navigate(new Home());

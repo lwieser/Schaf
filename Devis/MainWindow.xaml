@@ -11,6 +11,7 @@
         <!-- Top menu -->
         <Menu DockPanel.Dock="Top" x:Name="Menu" HorizontalAlignment="Stretch">
             <MenuItem Header="Général" Name="General" Click="ClickMenu"/>
+            <MenuItem Header="Planification" Name="Planning" Click="ClickMenu"/>
             <MenuItem Header="Initialisation" Click="ClickMenu" />
             <MenuItem Header="Fichiers" Click="ClickMenu" />
             <MenuItem Header="Chantiers" Click="ClickMenu" />
