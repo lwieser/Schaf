@@ -277,6 +277,7 @@ namespace Devis.Controls
                 if (article != null)
                 {
                     ArticleRepository repo = new ArticleRepository();
+                    value = value.Replace('.', ',');
                     switch (propertyChanged)
                     {
                         case "Price":
