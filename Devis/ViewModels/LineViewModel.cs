@@ -13,7 +13,7 @@ namespace Devis.ViewModels
         private string _label;
         private double? _progress;
         private double? _price;
-        private int? _quantity;
+        private double? _quantity;
         private string _unit;
         private double? _amount;
         private bool _isEmpty;
@@ -118,7 +118,7 @@ namespace Devis.ViewModels
             }
         }
 
-        public  virtual int? Quantity
+        public  virtual double? Quantity
         {
             get { return _quantity; }
             set

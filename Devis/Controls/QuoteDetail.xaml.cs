@@ -251,58 +251,48 @@ namespace Devis.Controls
 
         private void CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            QuoteItem item = _selectionContext.Model.UnderlyingObject as QuoteItem;
             QuoteEntry entry = _selectionContext.Model.UnderlyingObject as QuoteEntry;
             QuoteArticle article = _selectionContext.Model.UnderlyingObject as QuoteArticle;
+            QuotePackage package = _selectionContext.Model.UnderlyingObject as QuotePackage;
+            LineViewModel line = _selectionContext.Model as LineViewModel;
 
             var binding = (e.Column as DataGridBoundColumn).Binding as Binding;
             string propertyChanged = binding.Path.Path;
             var editedTextbox = e.EditingElement as TextBox;
             string value = editedTextbox.Text;
 
-            if (entry != null)
-            {
-                EntryRepository repo = new EntryRepository();
-                switch (propertyChanged)
-                {
-                    case "Quantity":
-                        entry.Quantity = int.Parse(value);
-                        break;
-                }
-                repo.Update(entry);
-            }
+            if (string.IsNullOrEmpty(value) || item == null)
+                return;
 
             try
             {
+                RepositoryGeneric<QuoteItem> repo = new QuoteItemRepository();
+                PropertyInfo property = item.GetType().GetProperty(propertyChanged);
 
-                if (article != null)
+
+                if (property != null)
                 {
-                    ArticleRepository repo = new ArticleRepository();
-                    value = value.Replace('.', ',');
-                    switch (propertyChanged)
+                    Type t = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+                    if(t == typeof(double))
                     {
-                        case "Price":
-                            article.Price = double.Parse(value);
-                            break;
-                        case "Amount":
-                            article.Amount = double.Parse(value);
-                            break;
-                        case "Quantity":
-                            article.Quantity = int.Parse(value);
-                            break;
-                        case "Unit":
-                            article.Unit = value;
-                            break;
-                        case "Disbursed":
-                            article.Disbursed = double.Parse(value);
-                            break;
+                        value = value.Replace('.', ',');
                     }
-                    repo.Update(article);
+
+                    object safeValue = (value == null) ? null : Convert.ChangeType(value, t);
+                    property.SetValue(item, safeValue, null);
                 }
+
+                repo.Update(item);
             }
             catch(Exception exception)
             {
+
                 MessageBoxHelper.ShowError(exception);
             }
+
+            //RefreshGrid();
         }
     }
 }

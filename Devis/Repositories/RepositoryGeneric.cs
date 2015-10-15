@@ -10,12 +10,12 @@ namespace Devis.Repositories
 {
     public class RepositoryGeneric<T> :  IRepositoryGeneric<T> where T : class
     { 
-        public ICollection<T> GetAll()
+        public virtual ICollection<T> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             throw new NotImplementedException();
         }

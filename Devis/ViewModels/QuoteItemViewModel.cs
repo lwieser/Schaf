@@ -24,6 +24,16 @@ namespace Devis.ViewModels
 
         public QuoteItemViewModel Parent { get; set; }
 
+        public override string Reference
+        {
+            get { return UnderlyingObject.Reference ??
+                    (UnderlyingObject.Numerotation != 0 ? UnderlyingObject.Numerotation.ToString() : string.Empty); }
+            set
+            {
+                UnderlyingObject.Reference = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override string Label
         {
@@ -50,9 +60,10 @@ namespace Devis.ViewModels
             get { return UnderlyingObject.Disbursed; }
             set
             {
-
                 UnderlyingObject.Disbursed = value;
                 OnPropertyChanged();
+                OnPropertyChanged("Margin");
+                NotifyParentProperty("Disbursed");
             }
         }
 
@@ -64,11 +75,12 @@ namespace Devis.ViewModels
                 UnderlyingObject.Price = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Amount");
+                OnPropertyChanged("Margin");
                 NotifyParentProperty("Amount");
             }
         }
 
-        public override int? Quantity
+        public override double? Quantity
         {
             get { return UnderlyingObject.Quantity; }
             set

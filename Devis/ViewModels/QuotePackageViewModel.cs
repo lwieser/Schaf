@@ -27,9 +27,11 @@ namespace Devis.ViewModels
 
         protected override void ChildNotification(QuoteItemViewModel child, string propertyName)
         {
-            if (propertyName == "Amount")
+            if (propertyName == "Amount" || propertyName == "Disbursed")
             {
                 OnPropertyChanged("Price");
+                OnPropertyChanged("Disbursed");
+                OnPropertyChanged("Margin");
                 OnPropertyChanged("Amount");
                 NotifyParentProperty("Amount");
             }

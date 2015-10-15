@@ -165,10 +165,10 @@
                     <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}"/>
                     <DataGridTextColumn Header="Unité" Binding="{Binding Unit}"/>
                     <DataGridTextColumn Header="Déboursé" Binding="{Binding Disbursed, StringFormat=N2}"/>
-                    <DataGridTextColumn Header="% Marge" Binding="{Binding Margin, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="% Marge" Binding="{Binding Margin, StringFormat=N2}" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Prix" Binding="{Binding Price, StringFormat=N2}"/>
-                    <DataGridTextColumn Header="Montant" Binding="{Binding Amount, StringFormat=N2}"/>
-                    <DataGridTextColumn Header="Montant" Binding="{Binding TVA}"/>
+                    <DataGridTextColumn Header="Montant" Binding="{Binding Amount, StringFormat=N2}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="TVA" Binding="{Binding TVA}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

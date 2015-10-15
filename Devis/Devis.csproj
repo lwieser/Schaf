@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201510150701221_disbursed1.Designer.cs">
       <DependentUpon>201510150701221_disbursed1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510150902439_convertQuantityToDouble.cs" />
+    <Compile Include="Migrations\201510150902439_convertQuantityToDouble.Designer.cs">
+      <DependentUpon>201510150902439_convertQuantityToDouble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Civility.cs" />
     <Compile Include="Models\Client.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="Repositories\IRepositoryGeneric.cs" />
     <Compile Include="Repositories\MemoryQuoteListRepository.cs" />
     <Compile Include="Repositories\PackageRepository.cs" />
+    <Compile Include="Repositories\QuoteItemRepository.cs" />
     <Compile Include="Repositories\QuoteRepository.cs" />
     <Compile Include="Repositories\RepositoryGeneric.cs" />
     <Compile Include="ViewModels\LineViewModel.cs" />
@@ -367,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510150701221_disbursed1.resx">
       <DependentUpon>201510150701221_disbursed1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510150902439_convertQuantityToDouble.resx">
+      <DependentUpon>201510150902439_convertQuantityToDouble.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
