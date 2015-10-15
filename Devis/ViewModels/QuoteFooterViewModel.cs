@@ -34,7 +34,10 @@ namespace Devis.ViewModels
         private double _totalNet;
         private double _taxeIncluded;
         private double _taxeIncludedNet;
-        private double _taxeFreeFinal; 
+        private double _taxeFreeFinal;
+        private double _disbursed;
+        private double _costPrice;
+        private double _profit;
         private List<QuotePackage> _packages;
 
         public ObservableCollection<LineViewModel> Lines { get; private set; }
@@ -48,7 +51,13 @@ namespace Devis.ViewModels
         private void AssignValues()
         {
             Quote quote  = new QuoteRepository().GetQuote(int.Parse(App.Current.Properties["QuoteID"].ToString()));
-            _salePrice = quote.Packages.Sum(package => package.Price) ?? 0;
+            SalePrice = quote.Packages.Sum(package => package.Price) ?? 0;
+            Disbursed = quote.Packages.Sum(package => package.Disbursed) ?? 0;
+            CostPrice = Disbursed;
+
+            double profit = SalePrice - CostPrice;
+            Profit = (profit / SalePrice) * 100;
+
             _posePrice = 0;
             _grossPrice = _salePrice + _posePrice;
             _refreshingCoef = 1;
@@ -155,6 +164,28 @@ namespace Devis.ViewModels
         }
 
         #region Properties
+        public double Profit
+        {
+            get { return _profit; }
+            set
+            {
+                if (Equals(value, _profit)) return;
+                _profit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double CostPrice
+        {
+            get { return _costPrice; }
+            set
+            {
+                if (Equals(value, _costPrice)) return;
+                _costPrice = value;
+                OnPropertyChanged();
+            }
+        }
+
         public double SalePrice
         {
             get { return _salePrice; }
@@ -162,6 +193,17 @@ namespace Devis.ViewModels
             {
                 if (Equals(value, _salePrice)) return;
                 _salePrice = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double Disbursed
+        {
+            get { return _disbursed; }
+            set
+            {
+                if (Equals(value, _disbursed)) return;
+                _disbursed = value;
                 OnPropertyChanged();
             }
         }

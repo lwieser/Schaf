@@ -10,6 +10,11 @@
              Width="auto"
               d:DataContext="{d:DesignInstance Type=viewModels:QuoteFooterViewModel, IsDesignTimeCreatable=True}"
             >
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel Background="White">
         <Grid x:Name="Container">
             <Grid.RowDefinitions>
@@ -50,7 +55,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0">Déboursé</Label>
-            <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False" Text="{Binding Debourse}"></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False" Text="{Binding Disbursed, StringFormat=N2}"></TextBox>
             <Label Grid.Row="0" Grid.Column="2">...</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Frais Gén (%)</Label>
@@ -58,11 +63,11 @@
             <Label Grid.Row="1" Grid.Column="2">...</Label>
 
             <Label Grid.Row="2" Grid.Column="0">Prix de revient</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" Text="{Binding CostPrice, StringFormat=N2}"></TextBox>
             <Label Grid.Row="2" Grid.Column="2">...</Label>
 
             <Label Grid.Row="3" Grid.Column="0">Bénéfice (%)</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False" Text="{Binding Profit, StringFormat=N2}"></TextBox>
             <Label Grid.Row="3" Grid.Column="2">...</Label>
 
             <Label Grid.Row="4" Grid.Column="0">Prix de vente</Label>
