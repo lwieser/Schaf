@@ -17,31 +17,23 @@ namespace Devis.ViewModels
 {
     public class QuoteFooterViewModel : INotifyPropertyChanged
     {
+        #region fields
         public event PropertyChangedEventHandler PropertyChanged;
         public static double TVA_RATE = 0.196;
         private double _salePrice;
-        private double _grossPrice;
-        private double _tva;
         private double _discount;
         private double _discountRate;
         private double _posePrice;
         private double _refreshing;
-        private double _grossPriceRefreshed;
-        private double _taxeFreeNetCom;
         private double _refreshingCoef; 
         private double _downPayRate; 
-        private double _downPayAmount;
-        private double _totalNet;
         private double _taxeIncluded;
-        private double _taxeIncludedNet;
-        private double _taxeFreeFinal;
         private double _disbursed;
         private double _costPrice;
-        private double _profit;
         private List<QuotePackage> _packages;
+        #endregion
 
         public ObservableCollection<LineViewModel> Lines { get; private set; }
-
         public QuoteFooterViewModel() 
         {
             Load();
@@ -51,25 +43,13 @@ namespace Devis.ViewModels
         private void AssignValues()
         {
             Quote quote  = new QuoteRepository().GetQuote(int.Parse(App.Current.Properties["QuoteID"].ToString()));
-            SalePrice = quote.Packages.Sum(package => package.Price) ?? 0;
             Disbursed = quote.Packages.Sum(package => package.Disbursed) ?? 0;
             CostPrice = Disbursed;
-
-            double profit = SalePrice - CostPrice;
-            Profit = (profit / SalePrice) * 100;
-
-            _posePrice = 0;
-            _grossPrice = _salePrice + _posePrice;
-            _refreshingCoef = 1;
-            _refreshing = _grossPrice * _refreshingCoef - _grossPrice;
-            _grossPriceRefreshed = _grossPrice;
-            _discount = 0;
-            _taxeFreeNetCom = _grossPriceRefreshed;
-            _taxeFreeFinal = _taxeFreeNetCom - _discount;
-            _tva = _taxeFreeFinal * TVA_RATE;
-            _taxeIncluded = _taxeFreeFinal + _tva;
-            _taxeIncludedNet = _taxeIncluded;
-            _totalNet = _taxeIncluded;
+            SalePrice = quote.Packages.Sum(package => package.Price) ?? 0;
+            PosePrice = 0;
+            RefreshingCoef = 1;
+            Refreshing = GrossPrice * RefreshingCoef - GrossPrice;
+            Discount = 0;
         }
 
         private void Load()
@@ -164,14 +144,16 @@ namespace Devis.ViewModels
         }
 
         #region Properties
+        public double ToPay
+        {
+            get { return TotalNet - DownPayAmount; }
+        }
+
         public double Profit
         {
-            get { return _profit; }
-            set
-            {
-                if (Equals(value, _profit)) return;
-                _profit = value;
-                OnPropertyChanged();
+            get {
+                double profit = SalePrice - CostPrice;
+                return (profit / SalePrice) * 100; ;
             }
         }
 
@@ -237,10 +219,21 @@ namespace Devis.ViewModels
             {
                 if (Equals(value, _discount)) return;
                 _discount = value;
-                DiscountRate = value / _taxeFreeNetCom * 100;
-                TaxeFreeFinal = _taxeFreeNetCom - _discount;
+                _discountRate = value / TaxeFreeNetCom * 100;
+                OnPropertyChanged("DiscountRate");
+                UpdateAfterDiscount();
                 OnPropertyChanged();
             }
+        }
+
+        private void UpdateAfterDiscount()
+        {
+            OnPropertyChanged("TaxeFreeFinal");
+            OnPropertyChanged("TVA");
+            OnPropertyChanged("TaxeIncluded");
+            OnPropertyChanged("TaxeIncludedNet");
+            OnPropertyChanged("DownPayAmount");
+            OnPropertyChanged("ToPay");
         }
 
         public double DiscountRate
@@ -250,40 +243,25 @@ namespace Devis.ViewModels
             {
                 if (Equals(value, _discountRate)) return;
                 _discountRate = value;
-                _discount= _discountRate * _taxeFreeNetCom / 100;
-                TaxeFreeFinal = _taxeFreeNetCom - _discount;
+                _discount= _discountRate * TaxeFreeNetCom / 100;
                 OnPropertyChanged("Discount");
+                UpdateAfterDiscount();
                 OnPropertyChanged();
             }
         }
-
 
         public double TaxeFreeNetCom
         {
-            get { return _taxeFreeNetCom; }
-             set
-            {
-                if (Equals(value, _taxeFreeNetCom)) return;
-                _taxeFreeNetCom = value;
-                TVA = _taxeFreeNetCom * TVA_RATE;
-                TaxeFreeFinal = _taxeFreeNetCom + TVA;
-                OnPropertyChanged();
-            }
+            get { return GrossPrice; }
+            set { }
         }
-
 
         public double TaxeFreeFinal
         {
             get
             {
-                return _taxeFreeFinal;
-            }
-            set
-            {
-                if (Equals(value, _taxeFreeFinal)) return;
-                _taxeFreeFinal = value;
-                TVA = _taxeFreeFinal * TVA_RATE;
-                OnPropertyChanged();
+                var result = TaxeFreeNetCom - Discount;
+                return result;
             }
         }
 
@@ -294,7 +272,6 @@ namespace Devis.ViewModels
             {
                 if (Equals(value, _taxeIncluded)) return;
                 _taxeIncluded = value;
-                TaxeIncludedNet = value;
                 OnPropertyChanged();
             }
         }
@@ -303,26 +280,13 @@ namespace Devis.ViewModels
         {
             get
             {
-                return _tva;                    ;
-            }
-            set
-            {
-                if (Equals(value, _tva)) return;
-                _tva = value;
-                TaxeIncluded = _taxeFreeFinal + value;
-                OnPropertyChanged();
+                return TaxeFreeFinal + (TaxeFreeFinal * TVA_RATE);                    ;
             }
         }
 
         public double GrossPrice
         {
-            get { return _grossPrice; }
-             set
-            {
-                if (Equals(value, _grossPrice)) return;
-                _grossPrice = value;
-                OnPropertyChanged();
-            }
+            get { return SalePrice + PosePrice; }
         }
 
         public double RefreshingCoef
@@ -338,37 +302,25 @@ namespace Devis.ViewModels
 
         public double GrossPriceRefreshed
         {
-            get { return _grossPriceRefreshed; }
-            set
-            {
-                if (Equals(value, _grossPriceRefreshed)) return;
-                _grossPriceRefreshed = value;
-                OnPropertyChanged();
-            }
+            get { return GrossPrice; }
+            set { }
         }
 
         public double TaxeIncludedNet
         {
             get
             {
-                return _taxeIncludedNet;
+                return TVA + TaxeFreeFinal;
             }
-            set
-            {
-                if (Equals(value, _taxeIncludedNet)) return;
-                _taxeIncludedNet = value;
-                OnPropertyChanged();
-            }
+            set { }
         }
 
         public double DownPayAmount
         {
-            get { return _downPayAmount; }
-            set
-            {
-                if (Equals(value, _downPayAmount)) return;
-                _downPayAmount = value;
-                OnPropertyChanged();
+            get {
+                if (_downPayRate == 0)
+                    return 0;
+                return (TaxeIncludedNet * _downPayRate) / 100;
             }
         }
 
@@ -382,23 +334,15 @@ namespace Devis.ViewModels
             {
                 if (Equals(value, _downPayRate)) return;
                 _downPayRate = value;
-                DownPayAmount = _taxeIncludedNet / _downPayRate;
+                OnPropertyChanged("DownPayAmount");
+                OnPropertyChanged("ToPay");
                 OnPropertyChanged();
             }
         }
 
         public double TotalNet
         {
-            get
-            {
-                return _totalNet;
-            }
-            set
-            {
-                if (Equals(value, _totalNet)) return;
-                _totalNet = value;
-                OnPropertyChanged();
-            }
+            get { return TaxeIncludedNet;}
         }
         #endregion
 

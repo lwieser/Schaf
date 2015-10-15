@@ -26,8 +26,6 @@ namespace Devis.Controls
         private readonly List<QuotePackage> _packages = new List<QuotePackage>();
         private ObservableCollection<LineViewModel> _lines;
         private QuoteDetailSelectionContext _selectionContext;
-        private Quote _quote;
-        private int _id;
         private QuoteDetailViewModel _vm;
 
         public QuoteDetail()
@@ -251,6 +249,9 @@ namespace Devis.Controls
 
         private void CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            if (_selectionContext.Model == null)
+                return;
+
             QuoteItem item = _selectionContext.Model.UnderlyingObject as QuoteItem;
             QuoteEntry entry = _selectionContext.Model.UnderlyingObject as QuoteEntry;
             QuoteArticle article = _selectionContext.Model.UnderlyingObject as QuoteArticle;
@@ -293,6 +294,11 @@ namespace Devis.Controls
             }
 
             //RefreshGrid();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Devis.Repositories
         {
             using (Entities context = new Entities())
             {
-                QuoteItem item;
                 QuotePackage package = obj as QuotePackage;
                 QuoteArticle article = obj as QuoteArticle;
                 QuoteEntry entry = obj as QuoteEntry;

@@ -9,14 +9,19 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using System;
 
 namespace Devis.ViewModels
 {
     public class QuoteDetailViewModel : INotifyPropertyChanged
     {
+        #region Fields
         private int _id;
         private Quote _quote;
         private ObservableCollection<LineViewModel> _lines;
+        private ICommand _deleteLineCommand;
+        #endregion
 
         public QuoteDetailViewModel()
         {
@@ -96,8 +101,6 @@ namespace Devis.ViewModels
                 OnPropertyChanged();
             }
         }
-
-
         public ObservableCollection<LineViewModel> Lines
         {
             get { return _lines; }
@@ -120,5 +123,42 @@ namespace Devis.ViewModels
         }
 
         #endregion
+
+        #region Commands 
+        public ICommand DeleteLineCommand
+        {
+            get
+            {
+                return _deleteLineCommand ?? (_deleteLineCommand = new CommandHandler(() => MyAction(), true));
+            }
+        }
+
+        public void MyAction()
+        {
+
+        }
+        #endregion
+    }
+    public class CommandHandler : ICommand
+    {
+        private Action _action;
+        private bool _canExecute;
+        public CommandHandler(Action action, bool canExecute)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public void Execute(object parameter)
+        {
+            _action();
+        }
     }
 }

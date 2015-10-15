@@ -43,40 +43,54 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="30"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0">Déboursé</Label>
             <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False" Text="{Binding Disbursed, StringFormat=N2}"></TextBox>
             <Label Grid.Row="0" Grid.Column="2">...</Label>
+            <Label Grid.Row="0" Grid.Column="8">Sous-traitance(%)</Label>
+            <TextBox Grid.Row="0" Grid.Column="9" IsEnabled="False" ></TextBox>
+            <Label Grid.Row="0" Grid.Column="10">...</Label>
 
             <Label Grid.Row="1" Grid.Column="0">Frais Gén (%)</Label>
             <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="False"></TextBox>
             <Label Grid.Row="1" Grid.Column="2">...</Label>
+            <Label Grid.Row="1" Grid.Column="8">Remise(%)</Label>
+            <TextBox Grid.Row="1" Grid.Column="9" IsEnabled="False" ></TextBox>
 
             <Label Grid.Row="2" Grid.Column="0">Prix de revient</Label>
             <TextBox Grid.Row="2" Grid.Column="1" IsEnabled="False" Text="{Binding CostPrice, StringFormat=N2}"></TextBox>
             <Label Grid.Row="2" Grid.Column="2">...</Label>
+            <Label Grid.Row="2" Grid.Column="8">Non compris TTC</Label>
+            <TextBox Grid.Row="2" Grid.Column="9" IsEnabled="False" ></TextBox>
 
             <Label Grid.Row="3" Grid.Column="0">Bénéfice (%)</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False" Text="{Binding Profit, StringFormat=N2}"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" IsEnabled="False" Text="{Binding Profit, Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="3" Grid.Column="2">...</Label>
 
             <Label Grid.Row="4" Grid.Column="0">Prix de vente</Label>
             <TextBox Grid.Row="4" Grid.Column="1" IsEnabled="False" Text="{Binding SalePrice, Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="4" Grid.Column="2">...</Label>
+            <Label Grid.Row="4" Grid.Column="8">Marge brute (%)</Label>
+            <TextBox Grid.Row="4" Grid.Column="9" IsEnabled="False" ></TextBox>
 
             <Label Grid.Row="5" Grid.Column="0">P.V. de Pose</Label>
             <TextBox Grid.Row="5" Grid.Column="1" IsEnabled="False" Text="{Binding PosePrice, Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="5" Grid.Column="2">...</Label>
+            <Label Grid.Row="5" Grid.Column="8">Marge nette (%)</Label>
+            <TextBox Grid.Row="5" Grid.Column="9" IsEnabled="False" ></TextBox>
 
             <Separator Grid.Row="6" Grid.ColumnSpan="8"></Separator>
 
@@ -87,10 +101,10 @@
             <Label Grid.Row="8" Grid.Column="0">Actualisation</Label>
             <TextBox Grid.Row="8" Grid.Column="1"  ></TextBox>
             <Label Grid.Row="8" Grid.Column="2">€</Label>
-            <TextBox Grid.Row="8" Grid.Column="4" IsEnabled="False" Text="{Binding Refreshing, Mode=OneWay, StringFormat=N2}"></TextBox>
-            <Label Grid.Row="8" Grid.Column="5">%</Label>
-            <Label Grid.Row="8" Grid.Column="6">Coef. général</Label>
-            <TextBox Grid.Row="8" Grid.Column="7" Text="{Binding RefreshingCoef,StringFormat={}{0:0.0000}}" >
+            <TextBox Grid.Row="8" Grid.Column="3" IsEnabled="False" Text="{Binding Refreshing, Mode=OneWay, StringFormat=N2}"></TextBox>
+            <Label Grid.Row="8" Grid.Column="4">%</Label>
+            <Label Grid.Row="8" Grid.Column="5">Coef. général</Label>
+            <TextBox Grid.Row="8" Grid.Column="6" Text="{Binding RefreshingCoef,StringFormat={}{0:0.0000}}" >
             </TextBox>
 
             <Label Grid.Row="9" Grid.Column="0">Remise lignes</Label>
@@ -104,7 +118,7 @@
             <Label Grid.Row="11" Grid.Column="0">Postes cpl. HT</Label>
             <TextBox Grid.Row="11" Grid.Column="1" IsEnabled="False"></TextBox>
             <Label Grid.Row="11" Grid.Column="2">€</Label>
-            <Label Grid.Row="11" Grid.Column="4">...</Label>
+            <Label Grid.Row="11" Grid.Column="3">...</Label>
 
 
             <Label Grid.Row="12" Grid.Column="0">HT Net Com.</Label>
@@ -117,27 +131,27 @@
             </StackPanel>
             <TextBox Grid.Row="13" Grid.Column="1" Text="{Binding Discount, StringFormat=N2}"></TextBox>
             <Label Grid.Row="13" Grid.Column="2">€</Label>
-            <TextBox Grid.Row="13" Grid.Column="4" Text="{Binding DiscountRate, StringFormat=N2}"></TextBox>
-            <Label Grid.Row="13" Grid.Column="5">%</Label>
+            <TextBox Grid.Row="13" Grid.Column="3" Text="{Binding DiscountRate, StringFormat=N2}"></TextBox>
+            <Label Grid.Row="13" Grid.Column="4">%</Label>
 
             <Label Grid.Row="14" Grid.Column="0" >HT Net Fin.</Label>
-            <TextBox Grid.Row="14" Grid.Column="1" IsEnabled="False" Text="{Binding TaxeFreeFinal, StringFormat=N2, Mode=OneWay}"></TextBox>
+            <TextBox Grid.Row="14" Grid.Column="1" IsEnabled="False" Text="{Binding TaxeFreeFinal,Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="14" Grid.Column="2" >€</Label>
 
             <Label Grid.Row="15" Grid.Column="0" >Total TVA</Label>
             <TextBox Grid.Row="15" Grid.Column="1" IsEnabled="False" Text="{Binding TVA, Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="15" Grid.Column="2" >€</Label>
-            <Label Grid.Row="15" Grid.Column="4" >...</Label>
+            <Label Grid.Row="15" Grid.Column="3" >...</Label>
 
             <Label Grid.Row="16" Grid.Column="0" >Total TTC</Label>
             <TextBox Grid.Row="16" Grid.Column="1" Text="{Binding TaxeIncluded, StringFormat=N2}" ></TextBox>
             <Label Grid.Row="16" Grid.Column="2" >€</Label>
-            <Label Grid.Row="16" Grid.Column="4" >...</Label>
+            <Label Grid.Row="16" Grid.Column="3" >...</Label>
 
             <Label Grid.Row="17" Grid.Column="0" >Postes cpl. TTC</Label>
             <TextBox Grid.Row="17" Grid.Column="1" IsEnabled="False"></TextBox>
             <Label Grid.Row="17" Grid.Column="2" >€</Label>
-            <Label Grid.Row="17" Grid.Column="4" >...</Label>
+            <Label Grid.Row="17" Grid.Column="3" >...</Label>
 
 
             <Label Grid.Row="18" Grid.Column="0" >Total TTC Net</Label>
@@ -147,14 +161,14 @@
             <Label Grid.Row="19" Grid.Column="0" >Accompte</Label>
             <TextBox Grid.Row="19" Grid.Column="1" IsEnabled="False" Text="{Binding DownPayAmount, StringFormat=N2, Mode=OneWay}"></TextBox>
             <Label Grid.Row="19" Grid.Column="2" >€</Label>
-            <TextBox Grid.Row="19" Grid.Column="4" Text="{Binding DownPayRate, Mode=OneWay, StringFormat=N2}"></TextBox>
-            <Label Grid.Row="19" Grid.Column="5" >%</Label>
-            <Label Grid.Row="19" Grid.Column="6" >...</Label>
+            <TextBox Grid.Row="19" Grid.Column="3" Text="{Binding DownPayRate, Mode=TwoWay, StringFormat=N2}"></TextBox>
+            <Label Grid.Row="19" Grid.Column="4" >%</Label>
+            <Label Grid.Row="19" Grid.Column="5" >...</Label>
 
             <Separator Grid.Row="20" Grid.ColumnSpan="8"></Separator>
 
-            <Label Grid.Row="21" Grid.Column="0" >Total TTC Net</Label>
-            <TextBox Grid.Row="21" Grid.Column="1" IsEnabled="False" Text="{Binding TotalNet, Mode=OneWay, StringFormat=N2}"></TextBox>
+            <Label Grid.Row="21" Grid.Column="0" >Net à payer</Label>
+            <TextBox Grid.Row="21" Grid.Column="1" IsEnabled="False" Text="{Binding ToPay, Mode=OneWay, StringFormat=N2}"></TextBox>
             <Label Grid.Row="21" Grid.Column="2" >€</Label>
         </Grid>
     </StackPanel>

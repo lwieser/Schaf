@@ -115,7 +115,7 @@ namespace Devis.Controls.Design
             {
                 ClientId = int.Parse(value.ToString());
             }
-            catch(Exception ex)
+            catch(Exception)
             {
             }
         }

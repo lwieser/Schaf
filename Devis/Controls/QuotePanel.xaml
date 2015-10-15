@@ -25,7 +25,7 @@
 
         <DataTemplate x:Key="FootItemTemplate">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding PanelType}"></TextBlock>
+                <TextBlock Text="Pied de page"></TextBlock>
             </StackPanel>
         </DataTemplate>
 
