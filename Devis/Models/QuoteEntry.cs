@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Devis.Models
 {
@@ -61,6 +62,24 @@ namespace Devis.Models
             set
             {
                 //throw new NotImplementedException();
+            }
+        }
+        
+        public override double? Disbursed
+        {
+            get
+            {
+                double result = 0;
+
+                foreach (var quoteArticle in Articles)
+                {
+                    var disbursed = quoteArticle.Disbursed ?? 0;
+                    var quantity = quoteArticle.Quantity ?? 0;
+
+                    result += disbursed * quantity;
+                }
+
+                return result;
             }
         }
 

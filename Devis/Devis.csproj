@@ -168,6 +168,26 @@
     <Compile Include="Migrations\201510140635166_ArticleNumerotation.Designer.cs">
       <DependentUpon>201510140635166_ArticleNumerotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510141541281_PopulatedClient.cs" />
+    <Compile Include="Migrations\201510141541281_PopulatedClient.Designer.cs">
+      <DependentUpon>201510141541281_PopulatedClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510141606358_PopulatedClient1.cs" />
+    <Compile Include="Migrations\201510141606358_PopulatedClient1.Designer.cs">
+      <DependentUpon>201510141606358_PopulatedClient1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510141619555_PopulatedClient2.cs" />
+    <Compile Include="Migrations\201510141619555_PopulatedClient2.Designer.cs">
+      <DependentUpon>201510141619555_PopulatedClient2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510150658426_disbursed.cs" />
+    <Compile Include="Migrations\201510150658426_disbursed.Designer.cs">
+      <DependentUpon>201510150658426_disbursed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510150701221_disbursed1.cs" />
+    <Compile Include="Migrations\201510150701221_disbursed1.Designer.cs">
+      <DependentUpon>201510150701221_disbursed1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Civility.cs" />
     <Compile Include="Models\Client.cs" />
@@ -333,6 +353,21 @@
     <EmbeddedResource Include="Migrations\201510140635166_ArticleNumerotation.resx">
       <DependentUpon>201510140635166_ArticleNumerotation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141541281_PopulatedClient.resx">
+      <DependentUpon>201510141541281_PopulatedClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141606358_PopulatedClient1.resx">
+      <DependentUpon>201510141606358_PopulatedClient1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510141619555_PopulatedClient2.resx">
+      <DependentUpon>201510141619555_PopulatedClient2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510150658426_disbursed.resx">
+      <DependentUpon>201510150658426_disbursed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510150701221_disbursed1.resx">
+      <DependentUpon>201510150701221_disbursed1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -395,7 +430,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Libs\InfragisticsWPF4.Controls.Editors.XamCalendar.v15.2.dll" />
+    <Content Include="Libs\InfragisticsWPF4.Controls.Menus.XamMenu.v15.2.dll" />
+    <Content Include="Libs\InfragisticsWPF4.Controls.Schedules.v15.2.dll" />
+    <Content Include="Libs\InfragisticsWPF4.v15.2.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

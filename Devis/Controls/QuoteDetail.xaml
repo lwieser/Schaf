@@ -27,7 +27,7 @@
             <Setter Property="Control.FontSize" Value="{Binding Path=FontSize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"></Setter>
             <Setter Property="Control.FontWeight" Value="{Binding Path=FontWeight, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}}"></Setter>
         </Style>
-        
+
     </UserControl.Resources>
 
     <Grid>
@@ -57,7 +57,6 @@
                 <devis:FormatToolBar  x:Name="FmtToolbar" x:FieldModifier="private"></devis:FormatToolBar>
             </StackPanel>
 
-
             <DataGrid ItemsSource="{Binding Lines}"  SelectionUnit="CellOrRowHeader" GridLinesVisibility="Vertical"
                   CanUserResizeRows="True" CanUserAddRows="False" CanUserDeleteRows="True"
                   AutoGenerateColumns="False" Grid.Row="1"
@@ -72,7 +71,8 @@
 
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                        <Setter Property="ContentStringFormat" Value="{Binding Path=., StringFormat=N2}" />
                     </Style>
                 </DataGrid.CellStyle>
 
@@ -159,21 +159,16 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTextColumn  Header="Référence" Binding="{Binding Reference}">
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn  Header="Désignation" Binding="{Binding Label}">
-                    </DataGridTextColumn>
-
-                    <DataGridTextColumn Header="% Avancement" Binding="{Binding Progress}"></DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Prix" Binding="{Binding Price}"></DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}"></DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Unité" Binding="{Binding Unit}"></DataGridTextColumn>
-
-                    <DataGridTextColumn Header="Montant" Binding="{Binding Amount}"></DataGridTextColumn>
+                    <DataGridTextColumn  Header="Référence" Binding="{Binding Reference}" />
+                    <DataGridTextColumn  Header="Désignation" Binding="{Binding Label}" />
+                    <DataGridTextColumn Header="% Avancement" Binding="{Binding Progress}"/>
+                    <DataGridTextColumn Header="Quantité" Binding="{Binding Quantity}"/>
+                    <DataGridTextColumn Header="Unité" Binding="{Binding Unit}"/>
+                    <DataGridTextColumn Header="Déboursé" Binding="{Binding Disbursed, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="% Marge" Binding="{Binding Margin, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="Prix" Binding="{Binding Price, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="Montant" Binding="{Binding Amount, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="Montant" Binding="{Binding TVA}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

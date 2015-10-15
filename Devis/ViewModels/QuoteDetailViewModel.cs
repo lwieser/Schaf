@@ -22,12 +22,7 @@ namespace Devis.ViewModels
         {
             _id = int.Parse(App.Current.Properties["QuoteID"].ToString());
             IQuoteRepostory repository = new QuoteRepository();
-            var tmp = Load();
-            Lines = new ObservableCollection<LineViewModel>(tmp);
-
             Quote = repository.GetQuote(_id);
-            Lines = Quote.GetLines();
-
         }
 
         private IEnumerable<LineViewModel> Load()

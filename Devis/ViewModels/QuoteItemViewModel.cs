@@ -21,9 +21,9 @@ namespace Devis.ViewModels
         {
             
         }
-        
 
         public QuoteItemViewModel Parent { get; set; }
+
 
         public override string Label
         {
@@ -35,6 +35,26 @@ namespace Devis.ViewModels
             }
         }
 
+        public override string Unit
+        {
+            get { return UnderlyingObject.Unit; }
+            set
+            {
+                UnderlyingObject.Unit = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public override double? Disbursed
+        {
+            get { return UnderlyingObject.Disbursed; }
+            set
+            {
+
+                UnderlyingObject.Disbursed = value;
+                OnPropertyChanged();
+            }
+        }
 
         public override double? Price
         {

@@ -59,6 +59,24 @@ namespace Devis.Models
 
         public int Numerotation { get; set; }
 
+        public override double? Disbursed
+        {
+            get
+            {
+                double result = 0;
+
+                foreach (var entry in Entries)
+                {
+                    var disbursed = entry.Disbursed ?? 0;
+                    var quantity = entry.Quantity ?? 0;
+
+                    result += disbursed * quantity;
+                }
+
+                return result;
+            }
+        }
+
         internal int GetNextNumerotation()
         {
             int numerotation = 1;

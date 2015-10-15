@@ -40,6 +40,8 @@ namespace Devis.Controls
             _vm = new QuoteDetailViewModel();
             DataContext = _vm;
             _packages = _vm.Quote.Packages;
+
+            //TODO : a déplacer dans le viewModel
             Lines = GenerateLines();
         }
 
@@ -269,25 +271,36 @@ namespace Devis.Controls
                 repo.Update(entry);
             }
 
-            if(article != null)
+            try
             {
-                ArticleRepository repo = new ArticleRepository();
-                switch(propertyChanged)
+
+                if (article != null)
                 {
-                    case "Price":
-                        article.Price = double.Parse(value);
-                        break;
-                    case "Amount":
-                        article.Amount = double.Parse(value);
-                        break;
-                    case "Quantity":
-                        article.Quantity = int.Parse(value);
-                        break;
-                    case "Unit":
-                        article.Unit = value;
-                        break;
+                    ArticleRepository repo = new ArticleRepository();
+                    switch (propertyChanged)
+                    {
+                        case "Price":
+                            article.Price = double.Parse(value);
+                            break;
+                        case "Amount":
+                            article.Amount = double.Parse(value);
+                            break;
+                        case "Quantity":
+                            article.Quantity = int.Parse(value);
+                            break;
+                        case "Unit":
+                            article.Unit = value;
+                            break;
+                        case "Disbursed":
+                            article.Disbursed = double.Parse(value);
+                            break;
+                    }
+                    repo.Update(article);
                 }
-                repo.Update(article);
+            }
+            catch(Exception exception)
+            {
+                MessageBoxHelper.ShowError(exception);
             }
         }
     }

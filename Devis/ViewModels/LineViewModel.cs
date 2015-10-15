@@ -17,6 +17,8 @@ namespace Devis.ViewModels
         private string _unit;
         private double? _amount;
         private bool _isEmpty;
+        private double? _disbursed;
+
 
         public QuoteItem UnderlyingObject { get; protected set; }
 
@@ -25,7 +27,27 @@ namespace Devis.ViewModels
         {
             get { return new LineViewModel {IsEmpty = true}; }
         }
+        
+        public virtual string Unit
+        {
+            get { return _unit; }
+            set {
+                if (value == _unit) return;
+                _unit = value;
+                OnPropertyChanged();
+            }
+        }
 
+
+        public virtual double? Margin
+        {
+            get
+            {
+                if (UnderlyingObject != null)
+                    return UnderlyingObject.Margin;
+                return null;
+            }
+        }
 
         public virtual string Numbering
         {
@@ -36,6 +58,18 @@ namespace Devis.ViewModels
                 _numbering = value;
                 OnPropertyChanged();
                 OnPropertyChanged("Level");
+            }
+        }
+
+        public virtual double? Disbursed
+        {
+            get { return _disbursed; }
+            set
+            {
+                if (value == _disbursed) return;
+                _disbursed = value;
+                OnPropertyChanged();
+                OnPropertyChanged("Margin");
             }
         }
 
@@ -80,6 +114,7 @@ namespace Devis.ViewModels
                 if (value.Equals(_price)) return;
                 _price = value;
                 OnPropertyChanged();
+                OnPropertyChanged("Margin");
             }
         }
 
@@ -90,17 +125,6 @@ namespace Devis.ViewModels
             {
                 if (value.Equals(_quantity)) return;
                 _quantity = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Unit
-        {
-            get { return _unit; }
-            set
-            {
-                if (value == _unit) return;
-                _unit = value;
                 OnPropertyChanged();
             }
         }

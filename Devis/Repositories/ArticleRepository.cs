@@ -22,6 +22,7 @@ namespace Devis.Repositories
                 dbArticle.Quantity = obj.Quantity;
                 dbArticle.Price = obj.Price;
                 dbArticle.Unit = obj.Unit;
+                dbArticle.Disbursed = obj.Disbursed;
                 context.SaveChanges();
             }
         }

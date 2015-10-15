@@ -126,5 +126,32 @@
                         />
                 </controls:HeaderTabControl.ItemTemplateSelector>
             </controls:HeaderTabControl>
+
+
+        <StackPanel>
+            <Label>Description</Label>
+            <TextBox TextWrapping="Wrap" AcceptsReturn="True" Height="100"></TextBox>
+        </StackPanel>
+
+        <Separator/>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition ></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200" ></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" >Groupe 1</Label>
+            <TextBox Grid.Column="1" Grid.Row="0" 
+                     ></TextBox>
+            <Label Grid.Row="0" Grid.Column="2">Appel d'office</Label>
+
+            <Label Grid.Column="0" Grid.Row="1" >Groupe 2</Label>
+            <TextBox Grid.Column="1" Grid.Row="1"></TextBox>
+        </Grid>
     </StackPanel>
 </UserControl>
